@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Тренажер неправильных глаголов</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Экран настроек -->
+        <div id="setupScreen" class="screen active">
+            <div class="header">
+                <h1>📚 Тренажер неправильных глаголов</h1>
+                <p class="subtitle">Изучайте английские глаголы интерактивно!</p>
+            </div>
+            
+            <div class="card">
+                <h2>⚙️ Настройки игры</h2>
+                
+                <div class="setting-group">
+                    <label for="gameMode">Режим игры:</label>
+                    <select id="gameMode">
+                        <option value="practice">Тренировка</option>
+                        <option value="test">Зачёт (5 глаголов)</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="verbCount">Количество глаголов:</label>
+                    <select id="verbCount">
+                        <option value="5">5 глаголов</option>
+                        <option value="10" selected>10 глаголов</option>
+                        <option value="15">15 глаголов</option>
+                        <option value="20">20 глаголов</option>
+                        <option value="all">Все глаголы</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group hidden" id="testModeGroup">
+                    <label for="testMode">Режим зачета:</label>
+                    <select id="testMode">
+                        <option value="allColumns">Все формы</option>
+                        <option value="firstColumn">Только Past Simple</option>
+                        <option value="secondColumn">Только Past Participle</option>
+                        <option value="firstColumnMore">Чаще Past Simple</option>
+                        <option value="secondColumnMore">Чаще Past Participle</option>
+                    </select>
+                </div>
+                
+                <button id="startBtn" class="btn btn-primary">Начать игру</button>
+            </div>
+            
+            <div class="instructions">
+                <h3>📌 Как играть:</h3>
+                <p>1. Выберите режим игры и количество глаголов</p>
+                <p>2. Для зачёта выберите режим выбора форм</p>
+                <p>3. Заполните недостающие формы глаголов</p>
+                <p>4. Нажмите "Проверить" для получения результата</p>
+                <p>5. В режиме зачёта использованные глаголы не повторяются</p>
+            </div>
+        </div>
+        
+        <!-- Игровой экран -->
+        <div id="gameScreen" class="screen">
+            <div class="game-header">
+                <h2 id="gameTitle">🎮 Тренировка</h2>
+                <div id="testModeInfo" class="test-mode-badge hidden">
+                    <span id="testModeText">Режим зачёта</span>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table id="verbsTable">
+                    <thead>
+                        <tr>
+                            <th width="30%">Infinitive<br><small>Начальная форма</small></th>
+                            <th width="35%">Past Simple<br><small>Прошедшее время</small></th>
+                            <th width="35%">Past Participle<br><small>Причастие прошедшего времени</small></th>
+                        </tr>
+                    </thead>
+                    <tbody id="verbsTableBody">
+                        <!-- Заполнится скриптом -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="controls">
+                <button id="checkBtn" class="btn btn-success">✅ Проверить ответы</button>
+                <button id="restartBtn" class="btn btn-warning">🔄 Заново</button>
+                <button id="newGameBtn" class="btn btn-primary">🎮 Новая игра</button>
+                <button id="backBtn" class="btn btn-secondary">← Назад</button>
+            </div>
+            
+            <div id="timer" class="timer hidden">
+                <div class="timer-icon">⏱️</div>
+                <div class="timer-text">Время:</div>
+                <div id="timeDisplay" class="timer-display">00:00</div>
+            </div>
+        </div>
+        
+        <!-- Экран результатов -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-header">
+                <h2>🏆 Результаты</h2>
+            </div>
+            
+            <div class="score-container">
+                <div class="score-display" id="scoreDisplay">0/10</div>
+                <div id="resultMessage" class="result-message"></div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progressBar" class="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progressText">0%</div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Правильно</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">Всего</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="percentage">0%</div>
+                    <div class="stat-label">Процент</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="timeResult">0:00</div>
+                    <div class="stat-label">Время</div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="restartFromResultsBtn" class="btn btn-warning">🔄 Попробовать снова</button>
+                <button id="newGameFromResultsBtn" class="btn btn-primary">🎮 Новая игра</button>
+                <button id="backFromResultsBtn" class="btn btn-secondary">← Настройки</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <!-- Отладка для iPhone -->
+    <script>
+        // Простая проверка загрузки
+        console.log("Страница загружена успешно");
+        console.log("Кнопки найдены:", {
+            newGameBtn: !!document.getElementById('newGameBtn'),
+            newGameFromResultsBtn: !!document.getElementById('newGameFromResultsBtn')
+        });
+    </script>
+</body>
+</html>

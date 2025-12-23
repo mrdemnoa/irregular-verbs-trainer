@@ -1,0 +1,26 @@
+{
+  "name": "irregular-verbs-trainer",
+  "version": "1.0.0",
+  "description": "Тренажер неправильных глаголов - проект mr.Demnoa",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Сайт готов к работе!'"
+  },
+  "keywords": [
+    "english",
+    "verbs",
+    "trainer",
+    "education",
+    "mr.Demnoa"
+  ],
+  "author": "mr.Demnoa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrDemnoa/irregular-verbs-trainer"
+  },
+  "bugs": {
+    "url": "https://github.com/mrDemnoa/irregular-verbs-trainer/issues"
+  },
+  "homepage": "https://irregular-verbs-trainer.onrender.com"
+}

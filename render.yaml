@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: irregular-verbs-trainer-mrDemnoa
+    env: static
+    buildCommand: ""
+    startCommand: ""
+    staticPublishPath: .
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /*
+        name: X-Developer
+        value: "mr.Demnoa"
